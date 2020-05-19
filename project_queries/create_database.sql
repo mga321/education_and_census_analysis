@@ -60,6 +60,14 @@ CREATE TABLE school_statistics (
 
 
 -- Add foreign keys to existing tables
+ALTER TABLE census_statistics
+ADD CONSTRAINT states_state_code_fkey  FOREIGN KEY (state_code)  REFERENCES states(state_code)
+
+ALTER TABLE schools
+ADD CONSTRAINT schools_zip_code_fkey  FOREIGN KEY (zip_code)  REFERENCES census_statistics(zip_code)
+
+ALTER TABLE school_statistics
+ADD CONSTRAINT school_statistics_school_id_fkey  FOREIGN KEY (school_id)  REFERENCES schools(school_id)
 
 
 
