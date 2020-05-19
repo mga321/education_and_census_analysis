@@ -12,7 +12,8 @@ CREATE TABLE census_statistics (
   pct_edu_attain_master    DECIMAL(7, 4),
   pct_edu_attain_prof    DECIMAL(7, 4),
   pct_edu_attain_doct    DECIMAL(7, 4),
-  pct_white	pct_black    DECIMAL(7, 4),
+  pct_white    DECIMAL(7, 4),
+  pct_black    DECIMAL(7, 4),
   pct_asian    DECIMAL(7, 4),
   pct_hispanic    DECIMAL(7, 4),
   pct_amerindian    DECIMAL(7, 4),
@@ -61,16 +62,10 @@ CREATE TABLE school_statistics (
 
 -- Add foreign keys to existing tables
 ALTER TABLE census_statistics
-ADD CONSTRAINT states_state_code_fkey  FOREIGN KEY (state_code)  REFERENCES states(state_code)
+ADD CONSTRAINT states_state_code_fkey  FOREIGN KEY (state_code)  REFERENCES states(state_code);
 
 ALTER TABLE schools
-ADD CONSTRAINT schools_zip_code_fkey  FOREIGN KEY (zip_code)  REFERENCES census_statistics(zip_code)
+ADD CONSTRAINT schools_zip_code_fkey  FOREIGN KEY (zip_code)  REFERENCES census_statistics(zip_code);
 
 ALTER TABLE school_statistics
-ADD CONSTRAINT school_statistics_school_id_fkey  FOREIGN KEY (school_id)  REFERENCES schools(school_id)
-
-
-
-
-
--- Add check constriants to existing tables
+ADD CONSTRAINT school_statistics_school_id_fkey  FOREIGN KEY (school_id)  REFERENCES schools(school_id);
