@@ -24,39 +24,40 @@ CREATE TABLE census_statistics (
 
 
 CREATE TABLE states (
-  state_code,
-  state_name
+  state_code    CHAR(2),
+  state_name    CHAR(15)
 );
 
 
 
 CREATE TABLE schools (
-  school_id,
-  school_name,
-  street_address,
-  city,
-  state_code,
-  zip_code,
-  locale_code
+  school_id   CHAR(15),
+  school_name   VARCHAR(50),
+  street_address    VARCHAR(50),
+  city    VARCHAR(40),
+  state_code    CHAR(2),
+  zip_code    CHAR(5),
+  locale_code   CHAR(2)
 );
 
 
 
 CREATE TABLE school_statistics (
-  school_id,
-  pct_proficient_math,
-  pct_proficient_reading,
-  pct_white,
-  pct_black,
-  pct_asian	pct_hispanic,
-  pct_amerindian,
-  pct_nativehawaii,
-  pct_tworaces
+  school_id   CHAR(15),
+  pct_proficient_math   DECIMAL(7, 4),
+  pct_proficient_reading    DECIMAL(7, 4),
+  pct_white   DECIMAL(7, 4),
+  pct_black   DECIMAL(7, 4),
+  pct_asian   DECIMAL(7, 4),
+  pct_hispanic    DECIMAL(7, 4),
+  pct_amerindian    DECIMAL(7, 4),
+  pct_nativehawaii    DECIMAL(7, 4),
+  pct_tworaces    DECIMAL(7, 4)
 );
 
 
 
 CREATE TABLE schools_and_states (
-  school_id,
-  state_code
+  school_id   CHAR(15),
+  state_code    CHAR(2)
 );
