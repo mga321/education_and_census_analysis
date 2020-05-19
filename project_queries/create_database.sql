@@ -54,10 +54,3 @@ CREATE TABLE school_statistics (
   pct_nativehawaii    DECIMAL(7, 4),
   pct_tworaces    DECIMAL(7, 4)
 );
-
-
-
-CREATE TABLE schools_and_states (
-  school_id   CHAR(15),
-  state_code    CHAR(2)
-);
