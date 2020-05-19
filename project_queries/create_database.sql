@@ -1,6 +1,6 @@
--- Create database
+-- Create database with tables, columns, and primary keys
 CREATE TABLE census_statistics (
-  zip_code    CHAR(5),
+  zip_code    CHAR(5)   PRIMARY KEY,
   state_code    CHAR(2),
   pop_total   INT,
   median_household_income   MONEY,
@@ -24,14 +24,14 @@ CREATE TABLE census_statistics (
 
 
 CREATE TABLE states (
-  state_code    CHAR(2),
+  state_code    CHAR(2)   PRIMARY KEY,
   state_name    CHAR(15)
 );
 
 
 
 CREATE TABLE schools (
-  school_id   CHAR(15),
+  school_id   CHAR(15)   PRIMARY KEY,
   school_name   VARCHAR(50),
   street_address    VARCHAR(50),
   city    VARCHAR(40),
@@ -43,7 +43,7 @@ CREATE TABLE schools (
 
 
 CREATE TABLE school_statistics (
-  school_id   CHAR(15),
+  school_id   CHAR(15)   PRIMARY KEY,
   pct_proficient_math   DECIMAL(7, 4),
   pct_proficient_reading    DECIMAL(7, 4),
   pct_white   DECIMAL(7, 4),
@@ -54,3 +54,15 @@ CREATE TABLE school_statistics (
   pct_nativehawaii    DECIMAL(7, 4),
   pct_tworaces    DECIMAL(7, 4)
 );
+
+
+
+
+
+-- Add foreign keys to existing tables
+
+
+
+
+
+-- Add check constriants to existing tables
