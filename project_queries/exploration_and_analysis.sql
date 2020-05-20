@@ -32,6 +32,7 @@ ORDER BY 1;
 */
 
 
+
 -- Question 2:
 
 -- How many public high schools are in each state?
@@ -62,11 +63,7 @@ Delaware has 28 schools
 
 
 
-
-
--- Part 2:
-
--- Question 1:
+-- Question 3:
 
 -- How many public high schools are in each locale?
 -- Query 1:
