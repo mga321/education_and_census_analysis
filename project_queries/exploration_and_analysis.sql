@@ -14,8 +14,7 @@ FROM individual_counts
 GROUP BY 1
 ORDER BY 1;
 
--- Answer:
-/*
+/* Answer:
 11148 zip codes have 1 school
 11148 zip codes have 1 school
 1621 zip codes have 2 schools
