@@ -68,3 +68,24 @@ GROUP BY 1
 
 SELECT *
 FROM scores_by_zip_code;  -- Turn the previous query into a temporary table and confirm with worked with a SELECT statement
+
+
+WITH scores_by_zip_code AS (
+SELECT schools.zip_code,
+		ROUND(AVG(school_statistics.pct_proficient_math), 2) pct_prof_math,
+		ROUND(AVG(school_statistics.pct_proficient_reading), 2) pct_prof_read
+FROM school_statistics
+JOIN schools
+ON school_statistics.school_id = schools.school_id
+GROUP BY 1
+),
+income_brackets_by_zip_code AS (
+SELECT	zip_code,
+		CASE WHEN median_household_income < 50000 THEN '<$50K'
+			WHEN median_household_income BETWEEN 50000 AND 100000 THEN '$50-$100K'
+			WHEN median_household_income > 100000 THEN '>$100K'
+			ELSE NULL END AS income_bracket
+FROM census_statistics
+)
+SELECT *
+FROM income_brackets_by_zip_code;  -- Add income brackets by zip code temporary table, this table will have records for all 33120 zip codes regardless of whether there is a shool there
