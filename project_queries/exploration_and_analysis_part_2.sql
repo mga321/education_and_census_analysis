@@ -59,10 +59,14 @@ SELECT	zip_code,
 FROM census_statistics
 )
 SELECT income_brackets_by_zip_code.income_bracket,  -- Select the columns needed in the final table
-		ROUND(AVG(scores_by_zip_code.pct_prof_math), 2),
-		ROUND(AVG(scores_by_zip_code.pct_prof_read), 2)
+		ROUND(AVG(scores_by_zip_code.pct_prof_math), 2) avg_pct_prof_math,
+		ROUND(AVG(scores_by_zip_code.pct_prof_read), 2) avg_pct_prof_math
 FROM income_brackets_by_zip_code
 JOIN scores_by_zip_code
 ON income_brackets_by_zip_code.zip_code = scores_by_zip_code.zip_code  -- Join the two temporary tables together
 WHERE income_brackets_by_zip_code.income_bracket IS NOT NULL  -- Remove all records where we had no income data
 GROUP BY 1;
+ /*
+Answer:
+
+ */
