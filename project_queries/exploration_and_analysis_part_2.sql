@@ -88,4 +88,31 @@ SELECT	zip_code,
 FROM census_statistics
 )
 SELECT *
-FROM income_brackets_by_zip_code;  -- Add income brackets by zip code temporary table, this table will have records for all 33120 zip codes regardless of whether there is a shool there
+FROM income_brackets_by_zip_code;  -- Add income brackets by zip code temporary table, this table will have records for all 33120 zip codes regardless of whether there is a shool there and check it worked by using the SELECT statement at the end
+
+-- FINAL VERSION OF QUERY
+WITH scores_by_zip_code AS (
+SELECT schools.zip_code,
+		ROUND(AVG(school_statistics.pct_proficient_math), 2) pct_prof_math,
+		ROUND(AVG(school_statistics.pct_proficient_reading), 2) pct_prof_read
+FROM school_statistics
+JOIN schools
+ON school_statistics.school_id = schools.school_id
+GROUP BY 1
+),
+income_brackets_by_zip_code AS (
+SELECT	zip_code,
+		CASE WHEN median_household_income < 50000 THEN '<$50K'
+			WHEN median_household_income BETWEEN 50000 AND 100000 THEN '$50-$100K'
+			WHEN median_household_income > 100000 THEN '>$100K'
+			ELSE NULL END AS income_bracket
+FROM census_statistics
+)
+SELECT income_brackets_by_zip_code.income_bracket,
+		ROUND(AVG(scores_by_zip_code.pct_prof_math), 2),
+		ROUND(AVG(scores_by_zip_code.pct_prof_read), 2)
+FROM income_brackets_by_zip_code
+JOIN scores_by_zip_code
+ON income_brackets_by_zip_code.zip_code = scores_by_zip_code.zip_code
+WHERE income_brackets_by_zip_code.income_bracket IS NOT NULL
+GROUP BY 1;  -- Merge my two temporary tables together and aggregate the test proficienies by income bracket
