@@ -41,36 +41,7 @@ SELECT COUNT(DISTINCT zip_code)
 FROM schools;  -- There are only 13384 distinct zip codes in the schools table, which means only 13384 zip codes have a school
 
 
-SELECT COUNT(DISTINCT schools.zip_code)
-FROM school_statistics
-JOIN schools
-ON school_statistics.school_id = schools.school_id;  -- After we join the tables on zip code, we have the correct number of zip codes represented
-
-
-SELECT schools.zip_code,
-		ROUND(AVG(school_statistics.pct_proficient_math), 2),
-		ROUND(AVG(school_statistics.pct_proficient_reading), 2)
-FROM school_statistics
-JOIN schools
-ON school_statistics.school_id = schools.school_id
-GROUP BY 1;  -- After getting the average scores for each zip code, we still have the correct number of zip codes represented (13384) and the average is correctly formatted
-
-
-WITH scores_by_zip_code AS (
-SELECT schools.zip_code,
-		ROUND(AVG(school_statistics.pct_proficient_math), 2) pct_prof_math,
-		ROUND(AVG(school_statistics.pct_proficient_reading), 2) pct_prof_read
-FROM school_statistics
-JOIN schools
-ON school_statistics.school_id = schools.school_id
-GROUP BY 1
-)
-
-SELECT *
-FROM scores_by_zip_code;  -- Turn the previous query into a temporary table and confirm with worked with a SELECT statement
-
-
-WITH scores_by_zip_code AS (
+WITH scores_by_zip_code AS (  -- Create a temporary table with the average score for each zip code
 SELECT schools.zip_code,
 		ROUND(AVG(school_statistics.pct_proficient_math), 2) pct_prof_math,
 		ROUND(AVG(school_statistics.pct_proficient_reading), 2) pct_prof_read
@@ -79,7 +50,7 @@ JOIN schools
 ON school_statistics.school_id = schools.school_id
 GROUP BY 1
 ),
-income_brackets_by_zip_code AS (
+income_brackets_by_zip_code AS (  -- Create a temporary table with the income bracket for each zip code
 SELECT	zip_code,
 		CASE WHEN median_household_income < 50000 THEN '<$50K'
 			WHEN median_household_income BETWEEN 50000 AND 100000 THEN '$50-$100K'
@@ -87,32 +58,11 @@ SELECT	zip_code,
 			ELSE NULL END AS income_bracket
 FROM census_statistics
 )
-SELECT *
-FROM income_brackets_by_zip_code;  -- Add income brackets by zip code temporary table, this table will have records for all 33120 zip codes regardless of whether there is a shool there and check it worked by using the SELECT statement at the end
-
--- FINAL VERSION OF QUERY
-WITH scores_by_zip_code AS (
-SELECT schools.zip_code,
-		ROUND(AVG(school_statistics.pct_proficient_math), 2) pct_prof_math,
-		ROUND(AVG(school_statistics.pct_proficient_reading), 2) pct_prof_read
-FROM school_statistics
-JOIN schools
-ON school_statistics.school_id = schools.school_id
-GROUP BY 1
-),
-income_brackets_by_zip_code AS (
-SELECT	zip_code,
-		CASE WHEN median_household_income < 50000 THEN '<$50K'
-			WHEN median_household_income BETWEEN 50000 AND 100000 THEN '$50-$100K'
-			WHEN median_household_income > 100000 THEN '>$100K'
-			ELSE NULL END AS income_bracket
-FROM census_statistics
-)
-SELECT income_brackets_by_zip_code.income_bracket,
+SELECT income_brackets_by_zip_code.income_bracket,  -- Select the columns needed in the final table
 		ROUND(AVG(scores_by_zip_code.pct_prof_math), 2),
 		ROUND(AVG(scores_by_zip_code.pct_prof_read), 2)
 FROM income_brackets_by_zip_code
 JOIN scores_by_zip_code
-ON income_brackets_by_zip_code.zip_code = scores_by_zip_code.zip_code
-WHERE income_brackets_by_zip_code.income_bracket IS NOT NULL
-GROUP BY 1;  -- Merge my two temporary tables together and aggregate the test proficienies by income bracket
+ON income_brackets_by_zip_code.zip_code = scores_by_zip_code.zip_code  -- Join the two temporary tables together
+WHERE income_brackets_by_zip_code.income_bracket IS NOT NULL  -- Remove all records where we had no income data
+GROUP BY 1;
