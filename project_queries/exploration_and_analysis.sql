@@ -1,5 +1,7 @@
 -- Part 1:
 
+--Question 1:
+
 -- How many public high schools are in each zip code?
 -- Query:
 WITH individual_counts AS (
@@ -28,6 +30,9 @@ ORDER BY 1;
 1 zip code has 10 schools
 1 zip code has 11 schools
 */
+
+
+-- Question 2:
 
 -- How many high schools are in each state?
 -- Query:
