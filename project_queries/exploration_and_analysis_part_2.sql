@@ -68,5 +68,8 @@ WHERE income_brackets_by_zip_code.income_bracket IS NOT NULL  -- Remove all reco
 GROUP BY 1;
  /*
 Answer:
-
+Yes, household income does appear to play a role in academic performance. As income bracket increases, math and reading proficiencies increase.
+>$100K average proficiencies - math 67.39 and reading 76.81
+$50-$100K average proficiencies - math 53.03 and reading 64.54
+<$50K average proficiencies - math 43.97 and reading 55.47
  */
