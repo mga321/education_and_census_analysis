@@ -26,3 +26,12 @@ percent of schools with greater math scores = 18.23%
 percent of schools with greater reading scores = 67.75%
 percent of schools with tied scores = 14.01%
 */
+
+
+
+
+
+-- Question 2:
+
+-- In what states do students score better on math? How about reading?
+-- Query 1:
