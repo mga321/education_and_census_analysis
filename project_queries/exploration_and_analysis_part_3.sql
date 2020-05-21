@@ -102,8 +102,8 @@ ORDER BY 1;
 -- Question 3:
  -- What is the average proficiency on state assessment exams for each zip code?
  -- How do they compare to other zip codes in the same state?
- SELECT sc.zip_code,
- 		sc.state_code,
+SELECT sc.zip_code,
+				sc.state_code,
 				ROUND(AVG(pct_proficient_math), 2) avg_math_proficiency,
 				ROUND(AVG(pct_proficient_reading), 2) avg_reading_proficiency
 FROM school_statistics ss
