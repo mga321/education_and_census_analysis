@@ -5,7 +5,7 @@ Education and Census SQL Analysis
 
 # Description:
 
-This project uses SQL to explore education and census data in order to find insights regarding demographics, location, school district, scores, etc. All questions answered are outlined within each .sql file in the project_queries directory.
+This project uses SQL to explore education and census data to find insights regarding demographics, location, school district, scores, etc. All questions answered are outlined within each .sql file in the project_queries directory.
 
 
 The project_queries directory contains the follwoing files:
